@@ -3,10 +3,10 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     branches:
-      - master
+      - main
 
 jobs:
   build:
@@ -22,16 +22,16 @@ jobs:
           npm install -g htmlhint stylelint eslint
 
       - name: Lint HTML
-        run: htmlhint "**/*.html"
+        run: htmlhint "/*.html"
 
       - name: Lint CSS
-        run: stylelint "**/*.css"
+        run: stylelint "/*.css"
 
       - name: Lint JavaScript
         run: eslint "**/*.js"
 
       - name: Deploy to GitHub Pages
-        if: github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/main'
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
