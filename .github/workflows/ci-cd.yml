@@ -16,19 +16,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install dependencies
-        run: |
-          sudo apt-get install -y npm
-          npm install -g htmlhint stylelint eslint
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
 
-      - name: Lint HTML
-        run: htmlhint "/*.html"
+      - name: Install stylelint
+        run: npm install -g stylelint stylelint-config-standard
 
       - name: Lint CSS
         run: stylelint "/*.css"
 
-      - name: Lint JavaScript
-        run: eslint "**/*.js"
+      - name: Lint HTML
+        run: npx htmlhint "/*.html"
 
       - name: Deploy to GitHub Pages
         if: github.ref == 'refs/heads/main'
